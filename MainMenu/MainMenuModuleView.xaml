@@ -3,10 +3,26 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:customControls="clr-namespace:ExifAnalyzer.Common.CustomControls;assembly=ExifAnalyzer.Common"
         xmlns:local="clr-namespace:MainMenu"
         mc:Ignorable="d"
         Height="450" Width="800">
     <Grid>
-        
+        <StackPanel>
+            <customControls:SidebarToggleButton Name="EventsButton" 
+                                     Foreground="White"
+                                             Text="Directory Analyzer"
+                                             ImageSource="Resources/Directory.jpg" 
+                                             Command="{Binding Path=ShowEventsPage}"
+                                             CommandParameter="{Binding Path=IsChecked,
+                                             RelativeSource={RelativeSource Self}}"
+                                             BorderThickness="0" Padding="8" 
+                                             Style="{StaticResource ToggleButtonTwoColumns}"
+                                             MouseOverBackground="#606060"
+                                             ToggledBackground="#0099CC"
+                                             IsChecked="True"/>
+            <Button>Results</Button>
+            <Button>Options</Button>
+        </StackPanel>
     </Grid>
 </UserControl>
