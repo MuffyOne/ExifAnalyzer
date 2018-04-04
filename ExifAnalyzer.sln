@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExifAnalyzer", "ExifAnalyzer\ExifAnalyzer.csproj", "{AD33C8AC-2923-44BF-8916-2CCB549B1272}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{52EFB9B7-F3E9-4BDC-93BE-3A58EA81D82B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{F70C4230-CA5A-4DEA-8006-5B03297FB331}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectoryAnalyzer", "DirectoryAnalyzer\DirectoryAnalyzer.csproj", "{DA351286-DC32-4422-8DA6-AADE2445A2C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainMenu", "MainMenu\MainMenu.csproj", "{F56D1FA5-70BF-4577-AF76-542A70A57A5C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD33C8AC-2923-44BF-8916-2CCB549B1272}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD33C8AC-2923-44BF-8916-2CCB549B1272}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD33C8AC-2923-44BF-8916-2CCB549B1272}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD33C8AC-2923-44BF-8916-2CCB549B1272}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52EFB9B7-F3E9-4BDC-93BE-3A58EA81D82B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52EFB9B7-F3E9-4BDC-93BE-3A58EA81D82B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52EFB9B7-F3E9-4BDC-93BE-3A58EA81D82B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52EFB9B7-F3E9-4BDC-93BE-3A58EA81D82B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA351286-DC32-4422-8DA6-AADE2445A2C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA351286-DC32-4422-8DA6-AADE2445A2C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA351286-DC32-4422-8DA6-AADE2445A2C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA351286-DC32-4422-8DA6-AADE2445A2C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F56D1FA5-70BF-4577-AF76-542A70A57A5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F56D1FA5-70BF-4577-AF76-542A70A57A5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F56D1FA5-70BF-4577-AF76-542A70A57A5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F56D1FA5-70BF-4577-AF76-542A70A57A5C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DA351286-DC32-4422-8DA6-AADE2445A2C2} = {F70C4230-CA5A-4DEA-8006-5B03297FB331}
+		{F56D1FA5-70BF-4577-AF76-542A70A57A5C} = {F70C4230-CA5A-4DEA-8006-5B03297FB331}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7923B904-5643-4D49-8DD2-7D04CAEC3EF1}
+	EndGlobalSection
+EndGlobal
