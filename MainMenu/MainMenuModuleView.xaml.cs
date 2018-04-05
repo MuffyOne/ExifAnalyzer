@@ -11,6 +11,9 @@ namespace MainMenu
         {
             InitializeComponent();
             DataContext = model;
+            model.RegisterToggleButton(ResultsToggleButton);
+            model.RegisterToggleButton(DirectoryToggleButton);
+            model.RegisterToggleButton(ImageAnalyzer);
         }
     }
 }

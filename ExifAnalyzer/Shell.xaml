@@ -30,8 +30,15 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <ItemsControl Grid.Row="0" Grid.Column="0" Width="300" x:Name="MainToolbar" 
-                          prism:RegionManager.RegionName="{x:Static commonResources:RegionNames.SideBar}"/>
+        <ItemsControl Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Width="300" x:Name="MainToolbar" 
+                          prism:RegionManager.RegionName="{x:Static commonResources:RegionNames.SideBar}">
+            <ItemsControl.Background>
+                <LinearGradientBrush StartPoint="0.2, 0" EndPoint="2, 1" ColorInterpolationMode="SRgbLinearInterpolation">
+                    <GradientStop Color="#96af83" />
+                    <GradientStop Color="#2c5e06" Offset="1" />
+                </LinearGradientBrush>
+            </ItemsControl.Background>
+        </ItemsControl>
         <UserControl x:Name="MainRegion" Grid.Row="0" Grid.RowSpan="2" Padding="0, 12, 12, 12" prism:RegionManager.RegionName="{x:Static commonResources:RegionNames.MainRegion}" Grid.Column="2" x:FieldModifier="public">
             <UserControl.Background>
                 <LinearGradientBrush StartPoint="0.2, 0" EndPoint="0.8, 1" ColorInterpolationMode="SRgbLinearInterpolation">

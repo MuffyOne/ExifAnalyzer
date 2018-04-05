@@ -5,24 +5,53 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:customControls="clr-namespace:ExifAnalyzer.Common.CustomControls;assembly=ExifAnalyzer.Common"
         xmlns:local="clr-namespace:MainMenu"
-        mc:Ignorable="d"
-        Height="450" Width="800">
+        mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/ExifAnalyzer.Common;component/Styles/StyleDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
-        <StackPanel>
-            <customControls:SidebarToggleButton Name="EventsButton" 
+        <StackPanel >
+            <TextBlock Text="MENU" FontFamily="Segoe UI" FontSize="20" VerticalAlignment="Center" Margin="5" HorizontalAlignment="Center"></TextBlock>
+            <customControls:SidebarToggleButton Name="DirectoryToggleButton" 
                                      Foreground="White"
                                              Text="Directory Analyzer"
-                                             ImageSource="Resources/Directory.jpg" 
+                                             ImageSource="Resources/Directory.png" 
                                              Command="{Binding Path=ShowEventsPage}"
                                              CommandParameter="{Binding Path=IsChecked,
                                              RelativeSource={RelativeSource Self}}"
                                              BorderThickness="0" Padding="8" 
                                              Style="{StaticResource ToggleButtonTwoColumns}"
-                                             MouseOverBackground="#606060"
-                                             ToggledBackground="#0099CC"
+                                             MouseOverBackground="#8bd850"
+                                             ToggledBackground="#4c7f26"
                                              IsChecked="True"/>
-            <Button>Results</Button>
-            <Button>Options</Button>
+            <customControls:SidebarToggleButton Name="ImageAnalyzer" 
+                                     Foreground="White"
+                                             Text="Image Analyzer"
+                                             ImageSource="Resources/Photo.png" 
+                                             Command="{Binding Path=ShowResultPage}"
+                                             CommandParameter="{Binding Path=IsChecked,
+                                             RelativeSource={RelativeSource Self}}"
+                                             BorderThickness="0" Padding="8" 
+                                             Style="{StaticResource ToggleButtonTwoColumns}"
+                                             MouseOverBackground="#8bd850"
+                                             ToggledBackground="#4c7f26"
+                                             IsChecked="False"/>
+            <customControls:SidebarToggleButton Name="ResultsToggleButton" 
+                                     Foreground="White"
+                                             Text="Results"
+                                             ImageSource="Resources/Results.png" 
+                                             Command="{Binding Path=ShowResultPage}"
+                                             CommandParameter="{Binding Path=IsChecked,
+                                             RelativeSource={RelativeSource Self}}"
+                                             BorderThickness="0" Padding="8" 
+                                             Style="{StaticResource ToggleButtonTwoColumns}"
+                                             MouseOverBackground="#8bd850"
+                                             ToggledBackground="#4c7f26"
+                                             IsChecked="False"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -1,10 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace ExifAnalyzer.Common.CustomControls
 {
-    public class SidebarToggleButton : ToggleButton
+    public class SidebarToggleButton : ButtonBase
     {
         static SidebarToggleButton()
         {
@@ -193,13 +194,36 @@ namespace ExifAnalyzer.Common.CustomControls
             }
         }
 
-        #region Fields
+         #region Fields
         /// <summary>
         /// By default, when the mouse is not hovering over the button, the "background" is transparent (i.e. it's not shown).
         /// </summary>
         protected Brush UnMousedBackground = new SolidColorBrush(Colors.Transparent);
         #endregion
-
+        protected override void OnMouseEnter(MouseEventArgs e)
+        {
+            if (IsChecked != true)
+            {
+                base.OnMouseEnter(e);
+                // Save the current background for when the mouse leaves.
+                UnMousedBackground = Background;
+                // Set the background.
+                Background = MouseOverBackground;
+            }
+        }
+        /// <summary>
+        /// Provides class handling for the System.Windows.UIElement.MouseLeave routed event that occurs when the mouse leaves an element.
+        /// </summary>
+        /// <param name="e">The event data for the System.Windows.Input.Mouse.MouseLeave event.</param>
+        protected override void OnMouseLeave(MouseEventArgs e)
+        {
+            if (IsChecked != true)
+            {
+                base.OnMouseLeave(e);
+                // Restore the saved background from before.
+                Background = UnMousedBackground;
+            }
+        }
         /// <summary>
         /// Gets or sets the background to apply to the control when it's toggled.
         /// </summary>
@@ -225,7 +249,7 @@ namespace ExifAnalyzer.Common.CustomControls
         /// </summary>
         /// <param name="newState">The new checked state. A value of null is treated as "indeterminate".</param>
         /// <param name="raiseEvents">true to raise events. false to not raise events.</param>
-        internal void InternalSetCheckedState(bool? newState, bool raiseEvents)
+        public void InternalSetCheckedState(bool? newState, bool raiseEvents)
         {
             SetValue(IsCheckedProperty, newState);
 
@@ -259,3 +283,4 @@ namespace ExifAnalyzer.Common.CustomControls
         }
     }
 }
+

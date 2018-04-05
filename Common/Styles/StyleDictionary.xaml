@@ -28,7 +28,7 @@
         <Setter Property="FontFamily" Value="Segoe UI Light" />
     </Style>
 
-    <Style x:Key="ToggleButtonTwoColumns" BasedOn="{StaticResource SegoeUiLightStyle}" TargetType="ToggleButton">
+    <Style x:Key="ToggleButtonTwoColumns" BasedOn="{StaticResource SegoeUiLightStyle}" TargetType="{x:Type customControls:SidebarToggleButton}">
         <Style.Resources>
             <converters:BoolToSignConverter x:Key="BoolToSignConverter" />
         </Style.Resources>
