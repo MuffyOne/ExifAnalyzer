@@ -23,7 +23,7 @@ namespace MainMenu
 
         public ICommand ShowDirectoryPage { get; set; }
         public ICommand ShowImagePage { get; set; }
-        public ICommand ShowResultsPage { get; set; }
+        public ICommand ShowResultPage { get; set; }
         private IRegion MainRegion { get { return _regionManager.Regions[RegionNames.MainRegion]; } }
         #endregion
 
@@ -40,10 +40,10 @@ namespace MainMenu
         {
             ShowDirectoryPage = new DelegateCommand<bool?>(OnShowDirectoryPage);
             ShowImagePage = new DelegateCommand<bool?>(OnShowImagePage);
-            ShowResultsPage = new DelegateCommand<bool?>(OnShowResultsPage);
+            ShowResultPage = new DelegateCommand<bool?>(OnShowResultPage);
         }
 
-        private void OnShowResultsPage(bool? isChecked)
+        private void OnShowResultPage(bool? isChecked)
         {
             if (MainRegion.ActiveViews.FirstOrDefault() is ResultsView)
             {
