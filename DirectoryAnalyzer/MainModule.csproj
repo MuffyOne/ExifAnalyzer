@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{DA351286-DC32-4422-8DA6-AADE2445A2C2}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>DirectoryAnalyzer</RootNamespace>
-    <AssemblyName>DirectoryAnalyzer</AssemblyName>
+    <RootNamespace>MainModule</RootNamespace>
+    <AssemblyName>MainModule</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -83,11 +83,27 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\ResultsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FileAnalyzerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\DirectoryAnalyzerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="MainModule.cs" />
+    <Compile Include="MainModuleModule.cs" />
+    <Compile Include="ViewModels\FileAnalyzerViewModel.cs" />
+    <Compile Include="ViewModels\ResultsViewModel.cs" />
+    <Compile Include="Views\ResultsView.xaml.cs">
+      <DependentUpon>ResultsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FileAnalyzerView.xaml.cs">
+      <DependentUpon>FileAnalyzerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DirectoryAnalyzerView.xaml.cs">
       <DependentUpon>DirectoryAnalyzerView.xaml</DependentUpon>
       <SubType>Code</SubType>

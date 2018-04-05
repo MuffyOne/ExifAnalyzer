@@ -1,5 +1,5 @@
 ﻿
-using DirectoryAnalyzer;
+using MainModule;
 using MainMenu;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
@@ -29,8 +29,9 @@ namespace ExifAnalyzer
         {
             base.ConfigureModuleCatalog();
             var moduleCatalog = (ModuleCatalog)ModuleCatalog;
-            moduleCatalog.AddModule(typeof(MainModule));
             moduleCatalog.AddModule(typeof(MainMenuModule));
+            moduleCatalog.AddModule(typeof(MainModuleModule));
+            
         }
     }
 }

@@ -1,21 +1,79 @@
 ﻿using ExifAnalyzer.Common.CustomControls;
+using Prism.Regions;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows;
+using Prism.Commands;
+using System.Windows.Input;
+using ExifAnalyzer.Common;
+using System.Linq;
+using MainModule;
+using Prism.Mvvm;
+using ExifAnalyzer.Common.Extensions;
 
 namespace MainMenu
 {
-    public class MainMenuModuleViewModel
+    public class MainMenuModuleViewModel : BindableBase
     {
-        private ObservableCollection<SidebarToggleButton> _toggleButtons;
 
-        public MainMenuModuleViewModel()
+        private readonly IRegionManager _regionManager;
+
+        #region Properties
+
+        public ICommand ShowDirectoryPage { get; set; }
+        public ICommand ShowImagePage { get; set; }
+        public ICommand ShowResultsPage { get; set; }
+        private IRegion MainRegion { get { return _regionManager.Regions[RegionNames.MainRegion]; } }
+        #endregion
+
+        #region constructor
+        public MainMenuModuleViewModel(IRegionManager regionManager)
         {
+            _regionManager = regionManager;
             _toggleButtons = new ObservableCollection<SidebarToggleButton>();
             _toggleButtons.CollectionChanged += _toggleButtons_CollectionChanged;
+            InitializeCommands();
         }
 
+        private void InitializeCommands()
+        {
+            ShowDirectoryPage = new DelegateCommand<bool?>(OnShowDirectoryPage);
+            ShowImagePage = new DelegateCommand<bool?>(OnShowImagePage);
+            ShowResultsPage = new DelegateCommand<bool?>(OnShowResultsPage);
+        }
+
+        private void OnShowResultsPage(bool? isChecked)
+        {
+            if (MainRegion.ActiveViews.FirstOrDefault() is ResultsView)
+            {
+                return;
+            }
+            MainRegion.NavigateTo(isChecked == true ? typeof(ResultsView) : null);
+        }
+
+        private void OnShowImagePage(bool? isChecked)
+        {
+            if (MainRegion.ActiveViews.FirstOrDefault() is FileAnalyzerView)
+            {
+                return;
+            }
+            MainRegion.NavigateTo(isChecked == true ? typeof(FileAnalyzerView) : null);
+        }
+
+        private void OnShowDirectoryPage(bool? isChecked)
+        {
+            if (MainRegion.ActiveViews.FirstOrDefault() is DirectoryAnalyzerView)
+            {
+                return;
+            }
+            MainRegion.NavigateTo(isChecked == true ? typeof(DirectoryAnalyzerView) : null);
+        }
+        #endregion
+
+        private ObservableCollection<SidebarToggleButton> _toggleButtons;
+
+       
         private void _toggleButtons_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             AddEventHandlersToButtons(e.NewItems);
@@ -65,12 +123,12 @@ namespace MainMenu
             foreach (SidebarToggleButton button in _toggleButtons)
             {
                 SidebarToggleButton toggleButton = button as SidebarToggleButton;
-                
+
                 if (toggleButton != null && toggleButton != sender)
                 {
                     toggleButton.InternalSetCheckedState(false, false);
                 }
-             
+
             }
         }
 

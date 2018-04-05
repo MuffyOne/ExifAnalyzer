@@ -1,6 +1,6 @@
 ﻿namespace MainModule.ViewModels
 {
-    public class DirectoryAnalyzerViewModel
+    public class FileAnalyzerViewModel
     {
     }
 }

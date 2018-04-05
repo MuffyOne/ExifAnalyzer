@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="Converters\BoolToSignConverter.cs" />
     <Compile Include="CustomControls\SidebarToggleButton.cs" />
+    <Compile Include="Extensions\RegionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -20,7 +20,7 @@
                                      Foreground="White"
                                              Text="Directory Analyzer"
                                              ImageSource="Resources/Directory.png" 
-                                             Command="{Binding Path=ShowEventsPage}"
+                                             Command="{Binding Path=ShowDirectoryPage}"
                                              CommandParameter="{Binding Path=IsChecked,
                                              RelativeSource={RelativeSource Self}}"
                                              BorderThickness="0" Padding="8" 
@@ -32,7 +32,7 @@
                                      Foreground="White"
                                              Text="Image Analyzer"
                                              ImageSource="Resources/Photo.png" 
-                                             Command="{Binding Path=ShowResultPage}"
+                                             Command="{Binding Path=ShowImagePage}"
                                              CommandParameter="{Binding Path=IsChecked,
                                              RelativeSource={RelativeSource Self}}"
                                              BorderThickness="0" Padding="8" 

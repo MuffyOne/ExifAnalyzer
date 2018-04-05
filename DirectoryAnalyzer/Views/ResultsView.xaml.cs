@@ -6,9 +6,9 @@ namespace MainModule
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class DirectoryAnalyzerView : UserControl
+    public partial class ResultsView : UserControl
     {
-        public DirectoryAnalyzerView(DirectoryAnalyzerViewModel model)
+        public ResultsView(ResultsViewModel model)
         {
             InitializeComponent();
             DataContext = model;
