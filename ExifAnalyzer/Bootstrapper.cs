@@ -29,7 +29,7 @@ namespace ExifAnalyzer
         {
             base.ConfigureModuleCatalog();
             var moduleCatalog = (ModuleCatalog)ModuleCatalog;
-            moduleCatalog.AddModule(typeof(DirectoryAnalyzerModule));
+            moduleCatalog.AddModule(typeof(MainModule));
             moduleCatalog.AddModule(typeof(MainMenuModule));
         }
     }

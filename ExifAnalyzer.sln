@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{F70C4230-CA5A-4DEA-8006-5B03297FB331}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectoryAnalyzer", "DirectoryAnalyzer\DirectoryAnalyzer.csproj", "{DA351286-DC32-4422-8DA6-AADE2445A2C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainModule", "DirectoryAnalyzer\MainModule.csproj", "{DA351286-DC32-4422-8DA6-AADE2445A2C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainMenu", "MainMenu\MainMenu.csproj", "{F56D1FA5-70BF-4577-AF76-542A70A57A5C}"
 EndProject

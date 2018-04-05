@@ -83,18 +83,18 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="DirectoryAnalyzerView.xaml">
+    <Page Include="Views\DirectoryAnalyzerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="DirectoryAnalyzerModule.cs" />
-    <Compile Include="DirectoryAnalyzerView.xaml.cs">
+    <Compile Include="MainModule.cs" />
+    <Compile Include="Views\DirectoryAnalyzerView.xaml.cs">
       <DependentUpon>DirectoryAnalyzerView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DirectoryAnalyzerViewModel.cs" />
+    <Compile Include="ViewModels\DirectoryAnalyzerViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

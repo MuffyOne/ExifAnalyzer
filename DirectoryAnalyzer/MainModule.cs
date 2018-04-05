@@ -5,12 +5,12 @@ using Prism.Regions;
 
 namespace DirectoryAnalyzer
 {
-    public class DirectoryAnalyzerModule : IModule
+    public class MainModule : IModule
     {
         private readonly IRegionManager regionManager;
         private readonly IUnityContainer container;
 
-        public DirectoryAnalyzerModule(IRegionManager regionManager, IUnityContainer container)
+        public MainModule(IRegionManager regionManager, IUnityContainer container)
         {
             this.regionManager = regionManager;
             this.container = container;
