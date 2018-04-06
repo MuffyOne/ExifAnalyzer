@@ -68,5 +68,86 @@ namespace ExifAnalyzer.Common.Localisation {
                 return ResourceManager.GetString("DirectoryDescription", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Action program.
+        /// </summary>
+        public static string ExposureActionProgram {
+            get {
+                return ResourceManager.GetString("ExposureActionProgram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aperture priority.
+        /// </summary>
+        public static string ExposureAperturePriority {
+            get {
+                return ResourceManager.GetString("ExposureAperturePriority", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creative program.
+        /// </summary>
+        public static string ExposureCreativeProgram {
+            get {
+                return ResourceManager.GetString("ExposureCreativeProgram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Landscape mode.
+        /// </summary>
+        public static string ExposureLandscapeMode {
+            get {
+                return ResourceManager.GetString("ExposureLandscapeMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manual.
+        /// </summary>
+        public static string ExposureManual {
+            get {
+                return ResourceManager.GetString("ExposureManual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normal program.
+        /// </summary>
+        public static string ExposureNormalProgram {
+            get {
+                return ResourceManager.GetString("ExposureNormalProgram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not Defined.
+        /// </summary>
+        public static string ExposureNotDefined {
+            get {
+                return ResourceManager.GetString("ExposureNotDefined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Portrait mode.
+        /// </summary>
+        public static string ExposurePortraitMode {
+            get {
+                return ResourceManager.GetString("ExposurePortraitMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shutter priority.
+        /// </summary>
+        public static string ExposureShutterPriority {
+            get {
+                return ResourceManager.GetString("ExposureShutterPriority", resourceCulture);
+            }
+        }
     }
 }

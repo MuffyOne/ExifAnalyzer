@@ -51,6 +51,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -91,12 +92,17 @@
   <ItemGroup>
     <Compile Include="Converters\BoolToSignConverter.cs" />
     <Compile Include="CustomControls\SidebarToggleButton.cs" />
+    <Compile Include="EXIF\Analyzer.cs" />
+    <Compile Include="EXIF\ExifProperties.cs" />
+    <Compile Include="EXIF\Exposure.cs" />
     <Compile Include="Extensions\RegionExtensions.cs" />
     <Compile Include="Localisation\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProcessedPhoto.cs" />
+    <Compile Include="Models\ResultSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -133,5 +139,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

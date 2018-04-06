@@ -120,4 +120,31 @@
   <data name="DirectoryDescription" xml:space="preserve">
     <value>Select a folder to analyze and press the "Start" button</value>
   </data>
+  <data name="ExposureActionProgram" xml:space="preserve">
+    <value>Action program</value>
+  </data>
+  <data name="ExposureAperturePriority" xml:space="preserve">
+    <value>Aperture priority</value>
+  </data>
+  <data name="ExposureCreativeProgram" xml:space="preserve">
+    <value>Creative program</value>
+  </data>
+  <data name="ExposureLandscapeMode" xml:space="preserve">
+    <value>Landscape mode</value>
+  </data>
+  <data name="ExposureManual" xml:space="preserve">
+    <value>Manual</value>
+  </data>
+  <data name="ExposureNormalProgram" xml:space="preserve">
+    <value>Normal program</value>
+  </data>
+  <data name="ExposureNotDefined" xml:space="preserve">
+    <value>Not Defined</value>
+  </data>
+  <data name="ExposurePortraitMode" xml:space="preserve">
+    <value>Portrait mode</value>
+  </data>
+  <data name="ExposureShutterPriority" xml:space="preserve">
+    <value>Shutter priority</value>
+  </data>
 </root>

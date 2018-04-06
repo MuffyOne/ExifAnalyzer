@@ -8,5 +8,6 @@
              Background="Transparent">
     <Grid>
         <TextBlock Name="tbBlock" Text="Results" FontFamily="Segoe UI" FontSize="35" Margin="5"/>
+        
     </Grid>
 </UserControl>

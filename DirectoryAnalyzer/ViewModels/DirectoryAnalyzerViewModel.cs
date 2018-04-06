@@ -1,4 +1,6 @@
-﻿using Prism.Commands;
+﻿using ExifAnalyzer.Common.EXIF;
+using ExifAnalyzer.Common.Models;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -77,11 +79,13 @@ namespace MainModule
 
         private void AnalyzeFiles(object sender, DoWorkEventArgs e)
         {
+            ResultSet resultSet = new ResultSet();
             var curFileInProgress = 0.0;
             foreach(string filePath in _jpegFilesLocation)
             {
                 curFileInProgress++;
-                Thread.Sleep(1000);
+                ProcessedPhoto processedPhoto = Analyzer.ProcesImage(filePath);
+                resultSet.AddProcessedPhoto(processedPhoto);
                 analysisWorker.ReportProgress((int)((curFileInProgress/_jpegFilesLocation.Count)*100));
             }
         }
@@ -111,7 +115,7 @@ namespace MainModule
 
         private void GetJpegFiles(string folderPath)
         {
-            var files = Directory.EnumerateFiles(folderPath, "*.*", SearchOption.TopDirectoryOnly).Where(s => s.EndsWith(".jpeg") || s.EndsWith(".jpg"));
+            var files = Directory.EnumerateFiles(folderPath, "*.*", SearchOption.TopDirectoryOnly).Where(s => s.EndsWith(".jpeg") || s.EndsWith(".jpg") || s.EndsWith(".JPG") || s.EndsWith(".JPEG"));
             _jpegFilesLocation = files.ToList();
             StartAnalysisEnabled = _jpegFilesLocation.Count > 0;
         }
