@@ -96,6 +96,7 @@
     <Compile Include="EXIF\ExifProperties.cs" />
     <Compile Include="EXIF\Exposure.cs" />
     <Compile Include="Extensions\RegionExtensions.cs" />
+    <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Localisation\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

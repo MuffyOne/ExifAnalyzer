@@ -9,7 +9,18 @@ namespace ExifAnalyzer.Common.EXIF
         CameraModel = 0x0110,
 
         [Description("Exposure program")]
-        ExposureProgram = 0x8822
+        ExposureProgram = 0x8822,
+
+        [Description("Exposure Time")]
+        ExposureTime = 0x829A,
+
+        [Description("Aperture f.")]
+        Aperture = 0x829D,
+
+        [Description("Focal length mm.")]
+        FocalLength = 0x920A,
+
+            
     }
 
 }

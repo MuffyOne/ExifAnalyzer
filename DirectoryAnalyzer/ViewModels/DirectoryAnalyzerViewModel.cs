@@ -88,6 +88,7 @@ namespace MainModule
                 resultSet.AddProcessedPhoto(processedPhoto);
                 analysisWorker.ReportProgress((int)((curFileInProgress/_jpegFilesLocation.Count)*100));
             }
+            var count = resultSet.CountProperty((int)ExifProperties.CameraModel);
         }
         #endregion
 

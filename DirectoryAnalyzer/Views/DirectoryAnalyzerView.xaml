@@ -6,7 +6,9 @@
         xmlns:localisation="clr-namespace:ExifAnalyzer.Common.Localisation;assembly=ExifAnalyzer.Common"
         xmlns:local="clr-namespace:MainModule"
         mc:Ignorable="d"
-             Background="Transparent">
+             Background="Transparent"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -22,11 +24,11 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Name="tbBlock" Text="Directory Analyzer" FontFamily="Segoe UI" FontSize="35" Margin="15"/>
-        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Name="tbDescription" Text="{x:Static localisation:Resources.DirectoryDescription}" FontFamily="Segoe UI" FontSize="15" Margin="15"/>
-        <Button Grid.Column="0" Grid.Row="2"  Grid.ColumnSpan="2" Command="{Binding  Path=BrowseFolders}" Margin="15">BROWSE</Button>
-        <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Text="{Binding  Path=SelectedFolder}" Margin="15"></TextBlock>
-        <Button Grid.Column="0" Grid.Row="4"  Grid.ColumnSpan="2" Command="{Binding  Path=StartAnalysis}" Margin="15" IsEnabled="{Binding Path=StartAnalysisEnabled}">START</Button>
-        <ProgressBar Grid.Column="0" Grid.Row="5"  Grid.ColumnSpan="2"  Value="{Binding Path=CurrentProgress, Mode=OneWay}" Margin="15" Height="10"/>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Name="tbBlock" Text="Directory Analyzer" FontFamily="Segoe UI" FontSize="35" Margin="15"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="tbDescription" Text="{x:Static localisation:Resources.DirectoryDescription}" FontFamily="Segoe UI" FontSize="15" Margin="15"/>
+        <Button Grid.Column="0" Grid.Row="2"  Grid.ColumnSpan="3" Command="{Binding  Path=BrowseFolders}" Margin="15">BROWSE</Button>
+        <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Text="{Binding  Path=SelectedFolder}" Margin="15" FontFamily="Segoe UI" FontSize="15"></TextBlock>
+        <Button Grid.Column="0" Grid.Row="4"  Grid.ColumnSpan="3" Command="{Binding  Path=StartAnalysis}" Margin="15" IsEnabled="{Binding Path=StartAnalysisEnabled}">START</Button>
+        <ProgressBar Grid.Column="0" Grid.Row="5"  Grid.ColumnSpan="3"  Value="{Binding Path=CurrentProgress, Mode=OneWay}" Margin="15" Height="10"/>
     </Grid>
 </UserControl>
