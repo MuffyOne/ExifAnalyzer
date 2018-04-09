@@ -102,7 +102,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\GrouppedProperty.cs" />
+    <Compile Include="Models\IResultSet.cs" />
     <Compile Include="Models\ProcessedPhoto.cs" />
+    <Compile Include="Models\Filter.cs" />
+    <Compile Include="Models\Property.cs" />
     <Compile Include="Models\ResultSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

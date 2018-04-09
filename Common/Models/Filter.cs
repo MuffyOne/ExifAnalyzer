@@ -1,9 +1,8 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
-namespace MainModule.Models
+namespace ExifAnalyzer.Common.Models
 {
-    public class ResultFilter : INotifyPropertyChanged
+    public class Filter : INotifyPropertyChanged
     {
         private bool _isChecked;
 
@@ -11,6 +10,7 @@ namespace MainModule.Models
             set { _isChecked = value; OnPropertyChanged("IsChecked");  } }
         public string Name { get; set; }
         public int ExifCode { get; set; }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

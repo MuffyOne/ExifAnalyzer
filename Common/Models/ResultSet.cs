@@ -1,15 +1,20 @@
-﻿using System;
+﻿using ExifAnalyzer.Common.EXIF;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace ExifAnalyzer.Common.Models
 {
-    public class ResultSet
+    public class ResultSet : IResultSet
     {
         private List<ProcessedPhoto> _resultSet;
-                
+
+        private List<GrouppedProperty> _grouppedProperties { get; set; }
+
+
         public ResultSet()
         {
+            _grouppedProperties = new List<GrouppedProperty>();
             _resultSet = new List<ProcessedPhoto>();
         }
 
@@ -23,24 +28,46 @@ namespace ExifAnalyzer.Common.Models
             return _resultSet;
         }
 
-        public SortedList<string, int> CountProperty(int properyToCount)
+        private List<GrouppedProperty> CountProperty(int properyToCount)
         {
-            SortedList<string, int> propertyCount = new SortedList<string, int>();
-            foreach(ProcessedPhoto photo in _resultSet)
+            List<GrouppedProperty> grouppedProperties = new List<GrouppedProperty>();
+            List<Property> properties = new List<Property>();
+            foreach (ProcessedPhoto photo in _resultSet)
             {
-                Tuple<int, string> property = photo.properties.FirstOrDefault(i => i.Item1 == properyToCount);
-
-                if (!propertyCount.ContainsKey(property.Item2))
-                {
-                    propertyCount.Add(property.Item2, 1);
-                }
-                else
-                {
-                    propertyCount[property.Item2] = propertyCount.Values[propertyCount.IndexOfKey(property.Item2)] + 1;
-                }
+                var property = photo.properties.FirstOrDefault(i => i.ExifCode == properyToCount);
+                properties.Add(property);
             }
+            grouppedProperties = properties.GroupBy(i => i.Value).Select(group => new GrouppedProperty { Value = group.Key, Count = group.Count(), ExifCode = properyToCount }).ToList();
+            return grouppedProperties;
+        }
 
-            return propertyCount;
+        public void CountProperties()
+        {
+            foreach (ExifProperties exifProperty in Enum.GetValues(typeof(ExifProperties)))
+            {
+                var grouppedProperty = CountProperty((int)exifProperty);
+                
+            }
+        }
+
+        public List<GrouppedProperty> GetGrouppedCollection()
+        {
+            return _grouppedProperties;
+        }
+              
+
+        public void GenerateGrouppedList()
+        {
+            foreach (ExifProperties exifProperty in Enum.GetValues(typeof(ExifProperties)))
+            {
+                var grouppedProperty = CountProperty((int)exifProperty);
+                _grouppedProperties.AddRange(grouppedProperty);
+            }
+        }
+              
+        public List<GrouppedProperty> GetFilteredGrouppedCollection(int filter)
+        {
+            return _grouppedProperties.Where(i => i.ExifCode == filter).ToList();
         }
     }
 }

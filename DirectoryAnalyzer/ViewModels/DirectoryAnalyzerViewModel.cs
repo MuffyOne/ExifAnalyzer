@@ -23,6 +23,7 @@ namespace MainModule
         private int _currentProgress;
         private BackgroundWorker analysisWorker;
         private string _curPath;
+        private IResultSet _resultSet;
         #endregion
 
         #region properties
@@ -51,11 +52,12 @@ namespace MainModule
         #endregion
 
         #region constructor
-        public DirectoryAnalyzerViewModel()
+        public DirectoryAnalyzerViewModel(IResultSet resultSet)
         {
             _jpegFilesLocation = new List<string>();
             InitializeWorker();
             InitializeCommands();
+            _resultSet = resultSet;
         }
 
         private void InitializeWorker()
@@ -69,6 +71,7 @@ namespace MainModule
 
         private void AnalyzeFilesComplete(object sender, RunWorkerCompletedEventArgs e)
         {
+            _resultSet.GenerateGrouppedList();
             SelectedFolder = string.Format("Analysis of {0} files completed ", _jpegFilesLocation.Count());
         }
 
@@ -79,16 +82,15 @@ namespace MainModule
 
         private void AnalyzeFiles(object sender, DoWorkEventArgs e)
         {
-            ResultSet resultSet = new ResultSet();
             var curFileInProgress = 0.0;
             foreach(string filePath in _jpegFilesLocation)
             {
                 curFileInProgress++;
                 ProcessedPhoto processedPhoto = Analyzer.ProcesImage(filePath);
-                resultSet.AddProcessedPhoto(processedPhoto);
+                _resultSet.AddProcessedPhoto(processedPhoto);
                 analysisWorker.ReportProgress((int)((curFileInProgress/_jpegFilesLocation.Count)*100));
             }
-            var count = resultSet.CountProperty((int)ExifProperties.CameraModel);
+           
         }
         #endregion
 
