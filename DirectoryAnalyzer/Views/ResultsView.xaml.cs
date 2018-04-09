@@ -22,40 +22,8 @@ namespace MainModule
             InitializeComponent();   
             
             _model = model;
-            CreateBindings();
-            CreateDynamicFitlers();
 
             DataContext = model;
         }
-
-        private void CreateBindings()
-        {
-            _checkedChangedBinding = new Binding();
-            _checkedChangedBinding.Source = _model;
-            _checkedChangedBinding.Path = new PropertyPath("CheckedChangedCommand");
-
-            _checkedBinding = new Binding();
-            _checkedBinding.RelativeSource = new RelativeSource(RelativeSourceMode.Self);
-            _checkedBinding.Path = new PropertyPath(nameof(CheckBox.IsChecked));
-        }
-
-        private void CreateDynamicFitlers()
-        {
-            foreach (ExifProperties exifProperty in Enum.GetValues(typeof(ExifProperties)))
-            {
-                CheckBox checkBox = new CheckBox();
-                checkBox.Tag = exifProperty;
-                var description = EnumHelper.GetEnumDescription(exifProperty);
-                checkBox.Content = description;
-                Thickness thickness = new Thickness(5);
-                checkBox.Margin = thickness;
-                checkBox.SetBinding(CheckBox.CommandProperty, _checkedChangedBinding);
-                checkBox.SetBinding(CheckBox.CommandParameterProperty, _checkedBinding);
-                FilterPanel.Children.Add(checkBox);
-                
-            }
-        }
-
-        
     }
 }

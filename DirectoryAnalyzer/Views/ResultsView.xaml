@@ -7,7 +7,7 @@
         mc:Ignorable="d"
              Background="Transparent">
     <Grid>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -23,6 +23,13 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <TextBlock Name="tbBlock" Text="Results" FontFamily="Segoe UI" FontSize="35" Margin="15" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
-        <StackPanel Name="FilterPanel" Grid.Row="1" Grid.Column="0" Margin="15"></StackPanel>
+
+        <ListView Name="DynamicFilters" ItemsSource="{Binding Path=ResultFilters}"  Grid.Row="1" Grid.Column="0" Margin="15" BorderBrush="Transparent"  Background="Transparent" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox IsChecked="{Binding Path=IsChecked}" Content="{Binding Path=Name}" Margin="5" Background="Transparent"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </UserControl>
