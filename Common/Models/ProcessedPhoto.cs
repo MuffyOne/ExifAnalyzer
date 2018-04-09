@@ -5,15 +5,20 @@ namespace ExifAnalyzer.Common.Models
 {
     public class ProcessedPhoto
     {
-        public List<Tuple<int, string>> properties;
+        public List<Property> properties;
+
+
         public ProcessedPhoto()
         {
-            properties = new List<Tuple<int, string>>();
+            properties = new List<Property>();
         }
 
-        public void AddProperty(int property, string propertyValue)
+        public void AddProperty(int exif, string propertyValue)
         {
-            properties.Add(new Tuple<int, string>(property, propertyValue));
+            Property prop = new Property();
+            prop.ExifCode = exif;
+            prop.Value = propertyValue;
+            properties.Add(prop);
         }
     }
 }

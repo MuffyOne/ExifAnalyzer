@@ -97,7 +97,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="MainModuleModule.cs" />
-    <Compile Include="Models\ResultFilter.cs" />
     <Compile Include="ViewModels\FileAnalyzerViewModel.cs" />
     <Compile Include="ViewModels\ResultsViewModel.cs" />
     <Compile Include="Views\ResultsView.xaml.cs">
@@ -144,6 +143,9 @@
       <Project>{52efb9b7-f3e9-4bdc-93be-3a58ea81d82b}</Project>
       <Name>Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
