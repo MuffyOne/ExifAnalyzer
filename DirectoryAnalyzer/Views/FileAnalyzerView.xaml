@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              xmlns:common="clr-namespace:ExifAnalyzer.Common;assembly=ExifAnalyzer.Common"
         xmlns:local="clr-namespace:MainModule"
         mc:Ignorable="d"
              Background="Transparent">
     <Grid>
-        <TextBlock Name="tbBlock" Text="File Analyzer" FontFamily="Segoe UI" FontSize="35" Margin="5"/>
+        <TextBlock Name="tbBlock" Text="File Analyzer" FontFamily="Segoe UI" FontSize="35" Margin="5"  Foreground="{x:Static common:ColorsHelper.MainGreen}"/>
     </Grid>
 </UserControl>

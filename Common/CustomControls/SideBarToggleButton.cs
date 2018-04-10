@@ -3,7 +3,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace ExifAnalyzer.Common.CustomControls
+namespace ExifAnalyzer.Common
 {
     public class SidebarToggleButton : ButtonBase
     {

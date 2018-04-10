@@ -1,4 +1,4 @@
-﻿using ExifAnalyzer.Common.CustomControls;
+﻿using ExifAnalyzer.Common;
 using Prism.Regions;
 using System.Collections;
 using System.Collections.ObjectModel;
@@ -6,11 +6,11 @@ using System.Collections.Specialized;
 using System.Windows;
 using Prism.Commands;
 using System.Windows.Input;
-using ExifAnalyzer.Common;
 using System.Linq;
 using MainModule;
 using Prism.Mvvm;
 using ExifAnalyzer.Common.Extensions;
+using System.Linq;
 
 namespace MainMenu
 {
@@ -33,7 +33,16 @@ namespace MainMenu
             _regionManager = regionManager;
             _toggleButtons = new ObservableCollection<SidebarToggleButton>();
             _toggleButtons.CollectionChanged += _toggleButtons_CollectionChanged;
+            MainRegion.NavigationService.Navigated += NavigationService_Navigated;
             InitializeCommands();
+        }
+
+        private void NavigationService_Navigated(object sender, RegionNavigationEventArgs e)
+        {
+            if (e.Uri.ToString().Contains("Results"))
+            {
+                _toggleButtons.First(i => i.Name.Equals("ResultsToggleButton")).IsChecked = true;
+            }
         }
 
         private void InitializeCommands()

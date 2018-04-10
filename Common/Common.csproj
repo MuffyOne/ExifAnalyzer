@@ -123,6 +123,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="RegionManager\RegionNames.cs" />
+    <Compile Include="Resources\ColorsHelper.cs" />
     <EmbeddedResource Include="Localisation\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:oxy="clr-namespace:OxyPlot.Wpf;assembly=OxyPlot.Wpf" 
+        xmlns:common="clr-namespace:ExifAnalyzer.Common;assembly=ExifAnalyzer.Common"
         xmlns:local="clr-namespace:MainModule"
         mc:Ignorable="d"
         Background="Transparent">
@@ -55,8 +56,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="400" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="450" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -66,9 +67,9 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <TextBlock Name="tbBlock" Text="Results" FontFamily="Segoe UI" FontSize="35" Margin="15" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
-
-        <ListView Name="DynamicFilters" ItemsSource="{Binding Path=ResultFilters}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="15" ItemContainerStyle="{StaticResource ContainerStyle}" Background="Transparent" BorderBrush="Transparent">
+        <TextBlock Name="tbBlock" Text="Results" FontFamily="Segoe UI" FontSize="35" Margin="15" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  Foreground="{x:Static common:ColorsHelper.MainGreen}"/>
+        <ComboBox ItemsSource="{Binding GraphTypes}" SelectedItem="{Binding SelectedGraphType, Mode=TwoWay}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="15"></ComboBox>
+        <ListView Name="DynamicFilters" ItemsSource="{Binding Path=ResultFilters}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="15" ItemContainerStyle="{StaticResource ContainerStyle}" Background="Transparent" BorderBrush="Transparent">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal" Background="Transparent" />
@@ -76,11 +77,11 @@
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <CheckBox IsChecked="{Binding Path=IsChecked}" Content="{Binding Path=Name}" Margin="5" Background="Transparent" />
+                    <RadioButton IsChecked="{Binding Path=IsChecked}" Content="{Binding Path=Name}" GroupName="{Binding Guid}"  Margin="5" Background="Transparent" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <oxy:PlotView  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" x:Name="ResultsPlotView" Model="{Binding Path=ResultsPlot}" Margin="15" Background="Transparent"/>
+        <oxy:PlotView  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" x:Name="ResultsPlotView" Model="{Binding Path=ResultsPlot}" Margin="15" Background="Transparent"/>
         <!--<ListView Name="PropertiesListView" ItemsSource="{Binding Path=GrouppedProperties}"  Grid.Row="1" Grid.Column="1" Margin="15" BorderBrush="Transparent"  Background="Transparent" >
             <ListView.ItemTemplate>
                 <DataTemplate>

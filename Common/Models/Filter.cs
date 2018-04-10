@@ -6,10 +6,14 @@ namespace ExifAnalyzer.Common.Models
     {
         private bool _isChecked;
 
-        public bool IsChecked { get { return _isChecked; }
-            set { _isChecked = value; OnPropertyChanged("IsChecked");  } }
+        public bool IsChecked
+        {
+            get { return _isChecked; }
+            set { _isChecked = value; OnPropertyChanged("IsChecked"); }
+        }
         public string Name { get; set; }
         public int ExifCode { get; set; }
+        public string Guid { get; set; }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

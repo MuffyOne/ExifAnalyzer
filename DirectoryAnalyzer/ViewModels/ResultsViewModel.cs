@@ -12,16 +12,18 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 using System.Linq;
-using OxyPlot.Annotations;
+using ExifAnalyzer.Common;
+using Prism.Regions;
 
 namespace MainModule.ViewModels
 {
-    public class ResultsViewModel : BindableBase
+    public class ResultsViewModel : BindableBase, INavigationAware
     {
         private ObservableCollection<Filter> _resultFilters;
         private IResultSet _resultSet;
         private ObservableCollection<GrouppedProperty> _grouppedProperties;
-
+        private string[] _graphTypes;
+        private string _selectedGraphType;
         public ICommand CheckedChangedCommand { get; set; }
 
         public ObservableCollection<Filter> ResultFilters
@@ -30,11 +32,46 @@ namespace MainModule.ViewModels
             set { SetProperty(ref _resultFilters, value); }
         }
 
+        public string[] GraphTypes
+        {
+            get { return _graphTypes; }
+            set { SetProperty(ref _graphTypes, value); }
+        }
+
         public ObservableCollection<GrouppedProperty> GrouppedProperties
         {
             get { return _grouppedProperties; }
             set { SetProperty(ref _grouppedProperties, value); }
         }
+
+        public string SelectedGraphType
+        {
+            get { return _selectedGraphType; }
+            set
+            {
+                SetProperty(ref _selectedGraphType, value);
+                RedeisgnGraphs();
+            }
+        }
+
+        private void RedeisgnGraphs()
+        {
+            if (_resultSet == null)
+            {
+                return;
+            }
+            switch (SelectedGraphType)
+            {
+                case "Pie Chart":
+                    DesignCakeGraph();
+                    break;
+                case "Bar Graph":
+                    DesignBarGraph();
+                    break;
+            }
+
+        }
+
 
         public PlotModel ResultsPlot { get; private set; }
 
@@ -44,6 +81,8 @@ namespace MainModule.ViewModels
             _grouppedProperties = new ObservableCollection<GrouppedProperty>();
             InitializeCommands();
             InitializeResultFilters();
+            GraphTypes = new string[] { "Pie Chart", "Bar Graph" };
+            SelectedGraphType = "Pie Chart";
             _resultSet = resultSet;
         }
 
@@ -54,20 +93,22 @@ namespace MainModule.ViewModels
             plotModel.LegendPosition = LegendPosition.BottomCenter;
             plotModel.LegendOrientation = LegendOrientation.Horizontal;
             plotModel.LegendBorderThickness = 0;
-
             return plotModel;
         }
 
         private void InitializeResultFilters()
         {
+            Guid guid = new Guid();
             ResultFilters = new ObservableCollection<Filter>();
             foreach (ExifProperties exifProperty in Enum.GetValues(typeof(ExifProperties)))
             {
                 Filter resultFilter = new Filter();
                 resultFilter.Name = EnumHelper.GetEnumDescription(exifProperty);
-                resultFilter.IsChecked = false;
+                if (exifProperty == ExifProperties.CameraModel)
+                    resultFilter.IsChecked = false;
                 resultFilter.ExifCode = (int)exifProperty;
                 resultFilter.PropertyChanged += ManageCheckBoxPropertyChanged;
+                resultFilter.Guid = guid.ToString();
                 ResultFilters.Add(resultFilter);
             }
         }
@@ -76,27 +117,12 @@ namespace MainModule.ViewModels
         {
             Filter filter = (Filter)sender;
             if (filter.IsChecked == false)
-            {
-                List<GrouppedProperty> propertiesToRemove = new List<GrouppedProperty>();
-                foreach (GrouppedProperty property in GrouppedProperties)
-                {
-                    if (property.ExifCode == filter.ExifCode)
-                    {
-                        propertiesToRemove.Add(property);
-                    }
-                }
-                foreach (GrouppedProperty property in propertiesToRemove)
-                {
-                    GrouppedProperties.Remove(property);
-                }
-            }
-            else
-            {
-                List<GrouppedProperty> propertiesToAdd = _resultSet.GetFilteredGrouppedCollection(filter.ExifCode);
-                GrouppedProperties.AddRange(propertiesToAdd);
-            }
-            //DesignBarGraph();
-            DesignCakeGraph();
+            { return; }
+            GrouppedProperties.Clear();
+            List<GrouppedProperty> propertiesToAdd = _resultSet.GetFilteredGrouppedCollection(filter.ExifCode);
+            GrouppedProperties.AddRange(propertiesToAdd);
+            RedeisgnGraphs();
+            
         }
 
         private void DesignBarGraph()
@@ -104,6 +130,7 @@ namespace MainModule.ViewModels
 
             ResultsPlot.Series.Clear();
             ResultsPlot.Axes.Clear();
+            ResultsPlot.PlotMargins = new OxyThickness(55, 15, 15, 15);
             int numberOfPictures = _resultSet.GetNumberOfAnalyzedPictures();
             var regrouppedProp = GrouppedProperties.GroupBy(i => i.ExifCode);
             foreach (var exifGroup in regrouppedProp)
@@ -113,6 +140,8 @@ namespace MainModule.ViewModels
                 series.LabelPlacement = LabelPlacement.Inside;
                 CategoryAxis categoryAxis = new CategoryAxis();
                 categoryAxis.Position = AxisPosition.Left;
+                categoryAxis.Angle = -45;
+                categoryAxis.FontSize = 11;
                 foreach (GrouppedProperty property in exifGroup)
                 {
                     BarItem item = new BarItem();
@@ -180,10 +209,11 @@ namespace MainModule.ViewModels
 
         private void DesignCakeGraph()
         {
+
             ResultsPlot.Title = "Distribution of values over number of pictures";
             ResultsPlot.TitleFontSize = 20;
             ResultsPlot.TitleFont = "Segoe UI";
-            ResultsPlot.TitleColor = OxyColor.FromRgb(56,120,8);
+            ResultsPlot.TitleColor = OxyColor.FromRgb(ColorsHelper.RedMainGreen, ColorsHelper.GreenMainGreen, ColorsHelper.BlueMainGreen);
             ResultsPlot.PlotMargins = new OxyThickness(15);
             ResultsPlot.Series.Clear();
             ResultsPlot.Axes.Clear();
@@ -209,6 +239,23 @@ namespace MainModule.ViewModels
         private void OnCheckedChangedCommand(bool? isChecked)
         {
             bool? isCheckedlocal = isChecked;
+        }
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            if (ResultFilters.All(i => i.IsChecked == false))
+            {
+                ResultFilters[0].IsChecked = true;
+            }
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return true;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
         }
     }
 }
