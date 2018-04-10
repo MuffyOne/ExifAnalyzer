@@ -9,5 +9,6 @@ namespace ExifAnalyzer.Common.Models
         List<GrouppedProperty> GetGrouppedCollection();
         void AddProcessedPhoto(ProcessedPhoto exif);
         List<GrouppedProperty> GetFilteredGrouppedCollection(int filter);
+        void ClearPreviousResults();
     }
 }

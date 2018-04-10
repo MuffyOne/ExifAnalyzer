@@ -70,9 +70,10 @@ namespace MainModule
         }
 
         private void AnalyzeFilesComplete(object sender, RunWorkerCompletedEventArgs e)
-        {
+        {   
             _resultSet.GenerateGrouppedList();
             SelectedFolder = string.Format("Analysis of {0} files completed ", _jpegFilesLocation.Count());
+
         }
 
         private void AnalyzerProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -103,6 +104,12 @@ namespace MainModule
 
         private void OnStartAnalysis()
         {
+            StartAnalysisEnabled = false;
+            var clear = MessageBox.Show("Do you want to clear any prevoius analized image?", "Clear resutls?", MessageBoxButtons.YesNo);
+            if(clear == DialogResult.Yes)
+            {
+                _resultSet.ClearPreviousResults();
+            }
             SelectedFolder = string.Format("Analyzing {0} files on folder {1} ", _jpegFilesLocation.Count(), _curPath);
             analysisWorker.RunWorkerAsync();
         }

@@ -23,6 +23,11 @@ namespace ExifAnalyzer.Common.Models
             _resultSet.Add(exif);
         }
 
+        public void ClearPreviousResults()
+        {
+            _resultSet.Clear();
+        }
+
         public List<ProcessedPhoto> GetCollection()
         {
             return _resultSet;
@@ -58,6 +63,7 @@ namespace ExifAnalyzer.Common.Models
 
         public void GenerateGrouppedList()
         {
+            _grouppedProperties.Clear();
             foreach (ExifProperties exifProperty in Enum.GetValues(typeof(ExifProperties)))
             {
                 var grouppedProperty = CountProperty((int)exifProperty);

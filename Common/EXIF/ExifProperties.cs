@@ -20,7 +20,9 @@ namespace ExifAnalyzer.Common.EXIF
         [Description("Focal length mm.")]
         FocalLength = 0x920A,
 
-            
+        [Description("ISO")]
+        Iso = 0x8827
+
     }
 
 }

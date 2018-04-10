@@ -93,8 +93,9 @@
     <Compile Include="Converters\BoolToSignConverter.cs" />
     <Compile Include="CustomControls\SidebarToggleButton.cs" />
     <Compile Include="EXIF\Analyzer.cs" />
+    <Compile Include="EXIF\ByteHelper.cs" />
     <Compile Include="EXIF\ExifProperties.cs" />
-    <Compile Include="EXIF\Exposure.cs" />
+    <Compile Include="EXIF\PropertyHelper.cs" />
     <Compile Include="Extensions\RegionExtensions.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Localisation\Resources.Designer.cs">
