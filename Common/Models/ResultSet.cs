@@ -75,5 +75,10 @@ namespace ExifAnalyzer.Common.Models
         {
             return _grouppedProperties.Where(i => i.ExifCode == filter).ToList();
         }
+
+        public int GetNumberOfAnalyzedPictures()
+        {
+            return _resultSet.Count();
+        }
     }
 }

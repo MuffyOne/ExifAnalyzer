@@ -14,22 +14,22 @@ namespace ExifAnalyzer.Common.EXIF
             try
             {
 
-            PropertyItem propertiItem;
-            string returnProp;
-            propertiItem = img.GetPropertyItem(property);
-            switch (property)
-            {
-                case 34850:
-                    returnProp = PropertyHelper.GetExposureDescription(propertiItem);
-                    break;
-                case 33434:
-                    returnProp = PropertyHelper.GetExposureTime(propertiItem);
-                    break;
-                default:
-                    returnProp = PropertyHelper.GetProperty(propertiItem);
-                    break;
-            }
-            return returnProp;
+                PropertyItem propertiItem;
+                string returnProp;
+                propertiItem = img.GetPropertyItem(property);
+                switch (property)
+                {
+                    case 34850:
+                        returnProp = PropertyHelper.GetExposureDescription(propertiItem);
+                        break;
+                    case 33434:
+                        returnProp = PropertyHelper.GetExposureTime(propertiItem);
+                        break;
+                    default:
+                        returnProp = PropertyHelper.GetProperty(propertiItem).Replace("\0", "");
+                        break;
+                }
+                return returnProp;
             }
             catch (Exception)
             {
@@ -57,6 +57,6 @@ namespace ExifAnalyzer.Common.EXIF
             return fi.Name;
         }
 
-        
+
     }
 }

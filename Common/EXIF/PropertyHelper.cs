@@ -56,7 +56,7 @@ namespace ExifAnalyzer.Common.EXIF
             var value = "";
             if (enumerator > 1)
             {
-                value = ((double)enumerator / (double)denominator).ToString();
+                value = (enumerator / (double)denominator).ToString();
             }
             else
             {

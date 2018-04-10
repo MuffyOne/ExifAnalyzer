@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:oxy="clr-namespace:OxyPlot.Wpf;assembly=OxyPlot.Wpf" 
         xmlns:local="clr-namespace:MainModule"
         mc:Ignorable="d"
         Background="Transparent">
@@ -54,7 +55,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="400" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -67,10 +68,10 @@
         </Grid.ColumnDefinitions>
         <TextBlock Name="tbBlock" Text="Results" FontFamily="Segoe UI" FontSize="35" Margin="15" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
 
-        <ListView Name="DynamicFilters" ItemsSource="{Binding Path=ResultFilters}" Grid.Row="1" Grid.Column="0" Margin="15" ItemContainerStyle="{StaticResource ContainerStyle}" Background="Transparent" BorderBrush="Transparent">
+        <ListView Name="DynamicFilters" ItemsSource="{Binding Path=ResultFilters}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="15" ItemContainerStyle="{StaticResource ContainerStyle}" Background="Transparent" BorderBrush="Transparent">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Background="Transparent" />
+                    <StackPanel Orientation="Horizontal" Background="Transparent" />
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
@@ -79,7 +80,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView Name="PropertiesListView" ItemsSource="{Binding Path=GrouppedProperties}"  Grid.Row="1" Grid.Column="1" Margin="15" BorderBrush="Transparent"  Background="Transparent" >
+        <oxy:PlotView  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" x:Name="ResultsPlotView" Model="{Binding Path=ResultsPlot}" Margin="15" Background="Transparent"/>
+        <!--<ListView Name="PropertiesListView" ItemsSource="{Binding Path=GrouppedProperties}"  Grid.Row="1" Grid.Column="1" Margin="15" BorderBrush="Transparent"  Background="Transparent" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -88,6 +90,6 @@
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>
+        </ListView>-->
     </Grid>
 </UserControl>

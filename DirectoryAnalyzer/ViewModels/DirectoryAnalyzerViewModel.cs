@@ -1,19 +1,20 @@
-﻿using ExifAnalyzer.Common.EXIF;
+﻿using ExifAnalyzer.Common;
+using ExifAnalyzer.Common.EXIF;
 using ExifAnalyzer.Common.Models;
 using Prism.Commands;
 using Prism.Mvvm;
-using System;
+using Prism.Regions;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Input;
+using ExifAnalyzer.Common.Extensions;
 
 namespace MainModule
 {
-    public class DirectoryAnalyzerViewModel : BindableBase
+    public class DirectoryAnalyzerViewModel : BindableBase 
     {
 
         #region fields
@@ -24,6 +25,7 @@ namespace MainModule
         private BackgroundWorker analysisWorker;
         private string _curPath;
         private IResultSet _resultSet;
+        private IRegionManager _regionManager;
         #endregion
 
         #region properties
@@ -49,15 +51,18 @@ namespace MainModule
             get { return _currentProgress; }
             set { SetProperty(ref _currentProgress, value); }
         }
+
+        private IRegion MainRegion { get { return _regionManager.Regions[RegionNames.MainRegion]; } }
         #endregion
 
         #region constructor
-        public DirectoryAnalyzerViewModel(IResultSet resultSet)
+        public DirectoryAnalyzerViewModel(IResultSet resultSet, IRegionManager regionManager)
         {
             _jpegFilesLocation = new List<string>();
             InitializeWorker();
             InitializeCommands();
             _resultSet = resultSet;
+            _regionManager = regionManager;
         }
 
         private void InitializeWorker()
@@ -73,6 +78,7 @@ namespace MainModule
         {   
             _resultSet.GenerateGrouppedList();
             SelectedFolder = string.Format("Analysis of {0} files completed ", _jpegFilesLocation.Count());
+            MainRegion.NavigateTo(typeof(ResultsView));
 
         }
 
@@ -105,10 +111,13 @@ namespace MainModule
         private void OnStartAnalysis()
         {
             StartAnalysisEnabled = false;
-            var clear = MessageBox.Show("Do you want to clear any prevoius analized image?", "Clear resutls?", MessageBoxButtons.YesNo);
-            if(clear == DialogResult.Yes)
+            if (_resultSet.GetNumberOfAnalyzedPictures() > 0)
             {
-                _resultSet.ClearPreviousResults();
+                var clear = MessageBox.Show("Do you want to clear any prevoius analized image?", "Clear resutls?", MessageBoxButtons.YesNo);
+                if (clear == DialogResult.Yes)
+                {
+                    _resultSet.ClearPreviousResults();
+                }
             }
             SelectedFolder = string.Format("Analyzing {0} files on folder {1} ", _jpegFilesLocation.Count(), _curPath);
             analysisWorker.RunWorkerAsync();
