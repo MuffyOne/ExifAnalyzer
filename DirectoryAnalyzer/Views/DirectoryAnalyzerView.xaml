@@ -19,6 +19,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -30,8 +31,14 @@
         <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="tbDescription" Text="{x:Static localisation:Resources.DirectoryDescription}" FontFamily="Segoe UI" FontSize="15" Margin="15"/>
         <Button Grid.Column="0" Grid.Row="2"  Grid.ColumnSpan="3" Command="{Binding  Path=BrowseFolders}" Margin="15">BROWSE</Button>
         <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Text="{Binding  Path=SelectedFolder}" Margin="15" FontFamily="Segoe UI" FontSize="15"></TextBlock>
-        <Button Grid.Column="0" Grid.Row="4"  Grid.ColumnSpan="3" Command="{Binding  Path=StartAnalysis}" Margin="15" IsEnabled="{Binding Path=StartAnalysisEnabled}">START</Button>
-        <mahMetro:MetroProgressBar Grid.Column="0" Grid.Row="5"  Grid.ColumnSpan="3"  Value="{Binding Path=CurrentProgress, Mode=OneWay}"  Margin="15" Height="10" 
+        <Expander Grid.Column="0" Grid.Row="4"  Grid.ColumnSpan="3" Margin="15" Header="Options">
+            <StackPanel>
+            <CheckBox Content="Search subdirectories" IsChecked="{Binding SearchSubDirectories}" Margin="10"/>
+                <CheckBox Content="Filter not found values" IsChecked="{Binding FilterNullValues}" Margin="10"/>
+            </StackPanel>
+        </Expander>
+        <Button Grid.Column="0" Grid.Row="5"  Grid.ColumnSpan="3" Command="{Binding  Path=StartAnalysis}" Margin="15" IsEnabled="{Binding Path=StartAnalysisEnabled}">START</Button>
+        <mahMetro:MetroProgressBar Grid.Column="0" Grid.Row="6"  Grid.ColumnSpan="3"  Value="{Binding Path=CurrentProgress, Mode=OneWay}"  Margin="15" Height="10" 
                                    Foreground="{x:Static common:ColorsHelper.MainGreen}" Background="Transparent"/>
     </Grid>
 </UserControl>

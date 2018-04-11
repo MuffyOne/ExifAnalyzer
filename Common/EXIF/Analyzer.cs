@@ -37,7 +37,7 @@ namespace ExifAnalyzer.Common.EXIF
             }
         }
 
-        public static ProcessedPhoto ProcesImage(string filePath)
+        public static ProcessedPhoto ProcesImage(string filePath, bool filterNullValues)
         {
             Image img = Image.FromFile(filePath);
             string filename = GetFilename(filePath);
@@ -46,6 +46,10 @@ namespace ExifAnalyzer.Common.EXIF
             {
                 int exifCode = Convert.ToInt32(exifProperty);
                 string propertyValue = ParseExifTag(exifCode, img);
+                if(filterNullValues && propertyValue== "Not Found")
+                {
+                    continue;
+                }
                 processedPhoto.AddProperty(exifCode, propertyValue);
             }
             return processedPhoto;

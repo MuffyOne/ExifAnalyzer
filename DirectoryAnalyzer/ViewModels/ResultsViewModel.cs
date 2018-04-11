@@ -117,12 +117,27 @@ namespace MainModule.ViewModels
         {
             Filter filter = (Filter)sender;
             if (filter.IsChecked == false)
-            { return; }
+            {
+                return;
+            }
             GrouppedProperties.Clear();
             List<GrouppedProperty> propertiesToAdd = _resultSet.GetFilteredGrouppedCollection(filter.ExifCode);
             GrouppedProperties.AddRange(propertiesToAdd);
             RedeisgnGraphs();
             
+        }
+
+        private void ForceGraphToRedisgn()
+        {
+            GrouppedProperties.Clear();
+            Filter filter = _resultFilters.FirstOrDefault(i => i.IsChecked);
+            if(filter == null)
+            {
+                return;
+            }
+            List<GrouppedProperty> propertiesToAdd = _resultSet.GetFilteredGrouppedCollection(filter.ExifCode);
+            GrouppedProperties.AddRange(propertiesToAdd);
+            RedeisgnGraphs();
         }
 
         private void DesignBarGraph()
@@ -247,6 +262,7 @@ namespace MainModule.ViewModels
             {
                 ResultFilters[0].IsChecked = true;
             }
+            ForceGraphToRedisgn();
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

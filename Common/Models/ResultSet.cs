@@ -40,7 +40,10 @@ namespace ExifAnalyzer.Common.Models
             foreach (ProcessedPhoto photo in _resultSet)
             {
                 var property = photo.properties.FirstOrDefault(i => i.ExifCode == properyToCount);
-                properties.Add(property);
+                if (property != null)
+                {
+                    properties.Add(property);
+                }
             }
             grouppedProperties = properties.GroupBy(i => i.Value).Select(group => new GrouppedProperty { Value = group.Key, Count = group.Count(), ExifCode = properyToCount }).ToList();
             return grouppedProperties;

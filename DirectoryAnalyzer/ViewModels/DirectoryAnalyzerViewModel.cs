@@ -14,7 +14,7 @@ using ExifAnalyzer.Common.Extensions;
 
 namespace MainModule
 {
-    public class DirectoryAnalyzerViewModel : BindableBase 
+    public class DirectoryAnalyzerViewModel : BindableBase
     {
 
         #region fields
@@ -26,13 +26,15 @@ namespace MainModule
         private string _curPath;
         private IResultSet _resultSet;
         private IRegionManager _regionManager;
+        private bool _searchSubDirectories;
+        private bool _filterNullValues;
         #endregion
 
         #region properties
         public ICommand BrowseFolders { get; set; }
 
         public ICommand StartAnalysis { get; set; }
-        
+
 
         public string SelectedFolder
         {
@@ -50,6 +52,21 @@ namespace MainModule
         {
             get { return _currentProgress; }
             set { SetProperty(ref _currentProgress, value); }
+        }
+
+        public bool SearchSubDirectories
+        {
+            get { return _searchSubDirectories; }
+            set {
+                SetProperty(ref _searchSubDirectories, value);
+                GetJpegFiles();
+            }
+        }
+
+        public bool FilterNullValues
+        {
+            get { return _filterNullValues; }
+            set { SetProperty(ref _filterNullValues, value); }
         }
 
         private IRegion MainRegion { get { return _regionManager.Regions[RegionNames.MainRegion]; } }
@@ -93,7 +110,7 @@ namespace MainModule
             foreach(string filePath in _jpegFilesLocation)
             {
                 curFileInProgress++;
-                ProcessedPhoto processedPhoto = Analyzer.ProcesImage(filePath);
+                ProcessedPhoto processedPhoto = Analyzer.ProcesImage(filePath, FilterNullValues);
                 _resultSet.AddProcessedPhoto(processedPhoto);
                 analysisWorker.ReportProgress((int)((curFileInProgress/_jpegFilesLocation.Count)*100));
             }
@@ -128,15 +145,21 @@ namespace MainModule
             var dialog = new FolderBrowserDialog();
             dialog.ShowDialog();
             _curPath = dialog.SelectedPath;
-            GetJpegFiles(_curPath);
-            SelectedFolder = string.Format("You are about to analyze folder: {0}, found  {1} Jpegs files", _curPath, _jpegFilesLocation.Count());
+            GetJpegFiles();
+            
         }
 
-        private void GetJpegFiles(string folderPath)
+        private void GetJpegFiles()
         {
-            var files = Directory.EnumerateFiles(folderPath, "*.*", SearchOption.TopDirectoryOnly).Where(s => s.EndsWith(".jpeg") || s.EndsWith(".jpg") || s.EndsWith(".JPG") || s.EndsWith(".JPEG"));
+            if(string.IsNullOrEmpty(_curPath))
+            {
+                return;
+            }
+            SearchOption searchOption = SearchSubDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
+            var files = Directory.EnumerateFiles(_curPath, "*.*", searchOption).Where(s => s.EndsWith(".jpeg") || s.EndsWith(".jpg") || s.EndsWith(".JPG") || s.EndsWith(".JPEG"));
             _jpegFilesLocation = files.ToList();
             StartAnalysisEnabled = _jpegFilesLocation.Count > 0;
+            SelectedFolder = string.Format("You are about to analyze folder: {0}, found  {1} Jpegs files", _curPath, _jpegFilesLocation.Count());
         }
         #endregion
     }
