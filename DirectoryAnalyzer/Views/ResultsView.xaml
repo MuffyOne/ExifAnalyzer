@@ -67,7 +67,7 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <TextBlock Name="tbBlock" Text="Results" FontFamily="Segoe UI" FontSize="35" Margin="15" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  Foreground="{x:Static common:ColorsHelper.MainGreen}"/>
+        <TextBlock Name="tbBlock" Text="Statistics" FontFamily="Segoe UI" FontSize="35" Margin="15" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  Foreground="{x:Static common:ColorsHelper.MainGreen}"/>
         <ComboBox ItemsSource="{Binding GraphTypes}" SelectedItem="{Binding SelectedGraphType, Mode=TwoWay}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="15"></ComboBox>
         <ListView Name="DynamicFilters" ItemsSource="{Binding Path=ResultFilters}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="15" ItemContainerStyle="{StaticResource ContainerStyle}" Background="Transparent" BorderBrush="Transparent">
             <ListView.ItemsPanel>

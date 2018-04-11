@@ -1,13 +1,107 @@
 ﻿<UserControl x:Class="MainModule.FileAnalyzerView"
+             x:Name="_userControl"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-              xmlns:common="clr-namespace:ExifAnalyzer.Common;assembly=ExifAnalyzer.Common"
+        xmlns:common="clr-namespace:ExifAnalyzer.Common;assembly=ExifAnalyzer.Common"
         xmlns:local="clr-namespace:MainModule"
+        xmlns:converters="clr-namespace:ExifAnalyzer.Common.Converters;assembly=ExifAnalyzer.Common"
         mc:Ignorable="d"
-             Background="Transparent">
+             Background="Transparent"
+              HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="ContainerStyle" TargetType="ListViewItem">
+                <Setter Property="Focusable" Value="false"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListViewItem">
+                            <Border x:Name="border" Background="Transparent">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="Disabled" />
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="SelectionStates">
+                                        <VisualState x:Name="Unselected" />
+                                        <VisualState x:Name="Selected">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border"
+                                                              Storyboard.TargetProperty="(UniformGrid.Background).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="LightBlue" />
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="SelectedUnfocused">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border"
+                                                              Storyboard.TargetProperty="(UniformGrid.Background).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="SkyBlue" />
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <ContentPresenter/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <converters:PhotoConverter x:Key="PhotoConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
-        <TextBlock Name="tbBlock" Text="File Analyzer" FontFamily="Segoe UI" FontSize="35" Margin="5"  Foreground="{x:Static common:ColorsHelper.MainGreen}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="450" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Name="tbBlock" Text="Image Viewer" FontFamily="Segoe UI" FontSize="35" Margin="15" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  Foreground="{x:Static common:ColorsHelper.MainGreen}"/>
+        <ListView Name="ImageThumbnails" ItemsSource="{Binding Path=ProcessedPhotos}" Grid.Row="2" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="1" 
+                  Margin="15" Background="Transparent" BorderBrush="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  SelectedItem="{Binding SelectedImage, Mode=TwoWay}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="4" Background="Transparent"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <Image Width="100" Height="100"  Source="{Binding Path=Thumbnail, Converter={StaticResource PhotoConverter}}"   Margin="0"/>
+                    </TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <ListView Name="PropertyList" ItemsSource="{Binding Path=PropertyList}" Grid.Row="2" Grid.RowSpan="3" Grid.Column="3" Grid.ColumnSpan="1" Margin="15" Background="Transparent" BorderBrush="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Background="Transparent"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" FontFamily="Segoe UI" FontSize="15"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </UserControl>

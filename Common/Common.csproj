@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\BoolToSignConverter.cs" />
+    <Compile Include="Converters\PhotoConverter.cs" />
     <Compile Include="CustomControls\SidebarToggleButton.cs" />
     <Compile Include="EXIF\Analyzer.cs" />
     <Compile Include="EXIF\ByteHelper.cs" />

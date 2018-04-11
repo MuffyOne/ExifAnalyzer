@@ -30,7 +30,7 @@
                                              IsChecked="True"/>
             <common:SidebarToggleButton Name="ImageAnalyzer" 
                                      Foreground="White"
-                                             Text="Image Analyzer"
+                                             Text="Image Viewer"
                                              ImageSource="Resources/Photo.png" 
                                              Command="{Binding Path=ShowImagePage}"
                                              CommandParameter="{Binding Path=IsChecked,
@@ -42,7 +42,7 @@
                                              IsChecked="False"/>
             <common:SidebarToggleButton Name="ResultsToggleButton" 
                                      Foreground="White"
-                                             Text="Results"
+                                             Text="Statistics"
                                              ImageSource="Resources/Results.png" 
                                              Command="{Binding Path=ShowResultPage}"
                                              CommandParameter="{Binding Path=IsChecked,

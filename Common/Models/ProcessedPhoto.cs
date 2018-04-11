@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace ExifAnalyzer.Common.Models
 {
@@ -7,7 +8,7 @@ namespace ExifAnalyzer.Common.Models
     {
         public List<Property> properties;
 
-
+        public Image Thumbnail { get; set; }
         public ProcessedPhoto()
         {
             properties = new List<Property>();
@@ -20,5 +21,7 @@ namespace ExifAnalyzer.Common.Models
             prop.Value = propertyValue;
             properties.Add(prop);
         }
+
+        
     }
 }

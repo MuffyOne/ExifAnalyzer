@@ -39,21 +39,47 @@ namespace ExifAnalyzer.Common.EXIF
 
         public static ProcessedPhoto ProcesImage(string filePath, bool filterNullValues)
         {
-            Image img = Image.FromFile(filePath);
-            string filename = GetFilename(filePath);
-            ProcessedPhoto processedPhoto = new ProcessedPhoto();
-            foreach (ExifProperties exifProperty in Enum.GetValues(typeof(ExifProperties)))
+            using (Image img = Image.FromFile(filePath))
             {
-                int exifCode = Convert.ToInt32(exifProperty);
-                string propertyValue = ParseExifTag(exifCode, img);
-                if(filterNullValues && propertyValue== "Not Found")
+                string filename = GetFilename(filePath);
+                ProcessedPhoto processedPhoto = new ProcessedPhoto();
+                foreach (ExifProperties exifProperty in Enum.GetValues(typeof(ExifProperties)))
                 {
-                    continue;
+                    processedPhoto.Thumbnail = CreateImageThumbnail(img);
+                    int exifCode = Convert.ToInt32(exifProperty);
+                    string propertyValue = ParseExifTag(exifCode, img);
+                    if (filterNullValues && propertyValue == "Not Found")
+                    {
+                        continue;
+                    }
+                    processedPhoto.AddProperty(exifCode, propertyValue);
                 }
-                processedPhoto.AddProperty(exifCode, propertyValue);
+                return processedPhoto;
             }
-            return processedPhoto;
         }
+
+        private static Image CreateImageThumbnail(Image img)
+        {
+            double ratio = (img.Width / (double)img.Height);
+            double width = 100;
+            double height = 100;
+            if(ratio > 1)
+            {
+                height = (100 / ratio);
+            }
+            else
+            {
+                width = (100 / ratio);
+            }
+            var callback = new Image.GetThumbnailImageAbort(ThumbnailImageAbortCallBack);
+            return img.GetThumbnailImage((int)width, (int)height, callback, IntPtr.Zero);
+        }
+
+        private static bool ThumbnailImageAbortCallBack()
+        {
+            return true;
+        }
+
 
         private static string GetFilename(string filePath)
         {
