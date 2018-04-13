@@ -132,11 +132,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Directory.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Directory.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

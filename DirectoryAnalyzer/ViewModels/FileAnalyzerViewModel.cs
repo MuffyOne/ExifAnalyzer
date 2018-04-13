@@ -15,7 +15,7 @@ namespace MainModule.ViewModels
         private readonly IResultSet _resultSet;
         private readonly IRegionManager _regionManager;
         private ProcessedPhoto _selectedImage;
-        private ObservableCollection<string> _propertyList;
+        private ObservableCollection<PropertyViewer> _propertyList;
         public ObservableCollection<ProcessedPhoto> ProcessedPhotos
         {
             get { return _processedPhotos; }
@@ -28,7 +28,7 @@ namespace MainModule.ViewModels
             _regionManager = regionManager;
         }
 
-        public ObservableCollection<string> PropertyList
+        public ObservableCollection<PropertyViewer> PropertyList
         {
             get { return _propertyList; }
             set { SetProperty(ref _propertyList, value); }
@@ -46,14 +46,15 @@ namespace MainModule.ViewModels
 
         private void UpdateImageProperty()
         {
-            List<string> propList = new List<string>();
+            PropertyList = new ObservableCollection<PropertyViewer>();
             foreach (Property prop in SelectedImage.properties)
             {
-                ExifProperties currentProp =(ExifProperties)prop.ExifCode;
-                var enumDesc = EnumHelper.GetEnumDescription(currentProp);
-                propList.Add(enumDesc + ": " + prop.Value);
+                PropertyViewer propertyViewer = new PropertyViewer();
+                ExifProperties currentProp = (ExifProperties)prop.ExifCode;
+                propertyViewer.PropertyName = EnumHelper.GetEnumDescription(currentProp);
+                propertyViewer.PropertyValue = prop.Value;
+                PropertyList.Add(propertyViewer);
             }
-            PropertyList = new ObservableCollection<string>(propList);
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

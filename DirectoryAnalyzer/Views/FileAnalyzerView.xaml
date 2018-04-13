@@ -15,44 +15,13 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Steel.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ExifAnalyzer.Common;component/Styles/StyleDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="ContainerStyle" TargetType="ListViewItem">
-                <Setter Property="Focusable" Value="false"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="ListViewItem">
-                            <Border x:Name="border" Background="Transparent">
-                                <VisualStateManager.VisualStateGroups>
-                                    <VisualStateGroup x:Name="CommonStates">
-                                        <VisualState x:Name="Normal" />
-                                        <VisualState x:Name="Disabled" />
-                                    </VisualStateGroup>
-                                    <VisualStateGroup x:Name="SelectionStates">
-                                        <VisualState x:Name="Unselected" />
-                                        <VisualState x:Name="Selected">
-                                            <Storyboard>
-                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border"
-                                                              Storyboard.TargetProperty="(UniformGrid.Background).(SolidColorBrush.Color)">
-                                                    <EasingColorKeyFrame KeyTime="0" Value="LightBlue" />
-                                                </ColorAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </VisualState>
-                                        <VisualState x:Name="SelectedUnfocused">
-                                            <Storyboard>
-                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border"
-                                                              Storyboard.TargetProperty="(UniformGrid.Background).(SolidColorBrush.Color)">
-                                                    <EasingColorKeyFrame KeyTime="0" Value="SkyBlue" />
-                                                </ColorAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </VisualState>
-                                    </VisualStateGroup>
-                                </VisualStateManager.VisualStateGroups>
-                                <ContentPresenter/>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
+
             <converters:PhotoConverter x:Key="PhotoConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
@@ -74,7 +43,7 @@
         </Grid.ColumnDefinitions>
         <TextBlock Name="tbBlock" Text="Image Viewer" FontFamily="Segoe UI" FontSize="35" Margin="15" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  Foreground="{x:Static common:ColorsHelper.MainGreen}"/>
         <ListView Name="ImageThumbnails" ItemsSource="{Binding Path=ProcessedPhotos}" Grid.Row="2" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="1" 
-                  Margin="15" Background="Transparent" BorderBrush="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                  Margin="15"  ItemContainerStyle="{StaticResource FocussableContainerStyle}" Background="Transparent" BorderBrush="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Auto" 
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   SelectedItem="{Binding SelectedImage, Mode=TwoWay}">
             <ListView.ItemsPanel>
@@ -85,13 +54,14 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
-                        <Image Width="100" Height="100"  Source="{Binding Path=Thumbnail, Converter={StaticResource PhotoConverter}}"   Margin="0"/>
+                        <Image Width="100" Height="100"  Source="{Binding Path=Thumbnail, Converter={StaticResource PhotoConverter}}"   Margin="5"/>
                     </TextBlock>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
 
-        <ListView Name="PropertyList" ItemsSource="{Binding Path=PropertyList}" Grid.Row="2" Grid.RowSpan="3" Grid.Column="3" Grid.ColumnSpan="1" Margin="15" Background="Transparent" BorderBrush="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <ListView Name="PropertyList" ItemsSource="{Binding Path=PropertyList}" Grid.Row="2" Grid.RowSpan="3" Grid.Column="3" Grid.ColumnSpan="1" Margin="15"  ItemContainerStyle="{StaticResource ContainerStyle}" Background="Transparent" BorderBrush="Transparent"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Background="Transparent"/>
@@ -99,7 +69,11 @@
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding}" FontFamily="Segoe UI" FontSize="15"/>
+                    <TextBlock FontFamily="Segoe UI" FontSize="15">
+                       <Run Text="{Binding Path=PropertyName}" FontWeight="Bold"/>
+                        <Run Text=": "/>
+                       <Run Text="{Binding Path=PropertyValue}" />
+                    </TextBlock>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
