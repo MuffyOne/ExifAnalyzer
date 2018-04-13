@@ -127,6 +127,7 @@ namespace MainModule
 
         private void OnStartAnalysis()
         {
+            _resultSet.SetAnalyzedFolder(_curPath);
             StartAnalysisEnabled = false;
             if (_resultSet.GetNumberOfAnalyzedPictures() > 0)
             {

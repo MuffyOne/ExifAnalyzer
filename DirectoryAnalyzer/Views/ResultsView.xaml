@@ -28,6 +28,7 @@
             <RowDefinition Height="450" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -50,5 +51,7 @@
             </ListView.ItemTemplate>
         </ListView>
         <oxy:PlotView  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" x:Name="ResultsPlotView" Model="{Binding Path=ResultsPlot}" Margin="15" Background="Transparent"/>
+        <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" x:Name="ExportButton" Command="{Binding Path=ExportGraphCommand}" Margin="15" Content="Export PDF"></Button>
+        <TextBlock Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Path=ExportText}" Margin="15" FontFamily="Segoe UI" FontSize="15"></TextBlock>
     </Grid>
 </UserControl>

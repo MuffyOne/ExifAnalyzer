@@ -11,5 +11,9 @@ namespace ExifAnalyzer.Common.Models
         List<GrouppedProperty> GetFilteredGrouppedCollection(int filter);
         void ClearPreviousResults();
         int GetNumberOfAnalyzedPictures();
+        void SetAnalyzedFolder(string path);
+        string GetAnalyzedFolder();
+
+
     }
 }

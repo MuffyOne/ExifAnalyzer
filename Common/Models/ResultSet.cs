@@ -11,6 +11,8 @@ namespace ExifAnalyzer.Common.Models
 
         private List<GrouppedProperty> _grouppedProperties { get; set; }
 
+        private string _folderPath;
+
 
         public ResultSet()
         {
@@ -82,6 +84,16 @@ namespace ExifAnalyzer.Common.Models
         public int GetNumberOfAnalyzedPictures()
         {
             return _resultSet.Count();
+        }
+
+        public string GetAnalyzedFolder()
+        {
+            return _folderPath;
+        }
+
+        public void SetAnalyzedFolder(string path)
+        {
+            _folderPath = path;
         }
     }
 }

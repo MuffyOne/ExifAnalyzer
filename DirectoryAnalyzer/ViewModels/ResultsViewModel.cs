@@ -14,6 +14,8 @@ using System.Windows.Input;
 using System.Linq;
 using ExifAnalyzer.Common;
 using Prism.Regions;
+using System.IO;
+using System.Windows.Forms;
 
 namespace MainModule.ViewModels
 {
@@ -24,7 +26,22 @@ namespace MainModule.ViewModels
         private ObservableCollection<GrouppedProperty> _grouppedProperties;
         private string[] _graphTypes;
         private string _selectedGraphType;
+        private PlotModel _plotModel;
+        private string _exportText;
+    
+        private string CurrentFilterText
+        {
+            get
+            {
+                Filter curFilter = _resultFilters.FirstOrDefault(i => i.IsChecked == true);
+                if(curFilter == null)
+                { return ""; }
+                return EnumHelper.GetEnumDescription((ExifProperties)curFilter.ExifCode);
+            }
+        }
+
         public ICommand CheckedChangedCommand { get; set; }
+        public ICommand ExportGraphCommand { get; set; }
 
         public ObservableCollection<Filter> ResultFilters
         {
@@ -52,6 +69,12 @@ namespace MainModule.ViewModels
                 SetProperty(ref _selectedGraphType, value);
                 RedeisgnGraphs();
             }
+        }
+
+        public string ExportText
+        {
+            get { return _exportText; }
+            set { SetProperty(ref _exportText, value); }
         }
 
         private void RedeisgnGraphs()
@@ -88,12 +111,12 @@ namespace MainModule.ViewModels
 
         private PlotModel InitialiseGraph()
         {
-            var plotModel = new PlotModel();
-            plotModel.LegendPlacement = LegendPlacement.Outside;
-            plotModel.LegendPosition = LegendPosition.BottomCenter;
-            plotModel.LegendOrientation = LegendOrientation.Horizontal;
-            plotModel.LegendBorderThickness = 0;
-            return plotModel;
+            _plotModel = new PlotModel();
+            _plotModel.LegendPlacement = LegendPlacement.Outside;
+            _plotModel.LegendPosition = LegendPosition.BottomCenter;
+            _plotModel.LegendOrientation = LegendOrientation.Horizontal;
+            _plotModel.LegendBorderThickness = 0;
+            return _plotModel;
         }
 
         private void InitializeResultFilters()
@@ -104,8 +127,6 @@ namespace MainModule.ViewModels
             {
                 Filter resultFilter = new Filter();
                 resultFilter.Name = EnumHelper.GetEnumDescription(exifProperty);
-                if (exifProperty == ExifProperties.CameraModel)
-                    resultFilter.IsChecked = false;
                 resultFilter.ExifCode = (int)exifProperty;
                 resultFilter.PropertyChanged += ManageCheckBoxPropertyChanged;
                 resultFilter.Guid = guid.ToString();
@@ -124,14 +145,14 @@ namespace MainModule.ViewModels
             List<GrouppedProperty> propertiesToAdd = _resultSet.GetFilteredGrouppedCollection(filter.ExifCode);
             GrouppedProperties.AddRange(propertiesToAdd);
             RedeisgnGraphs();
-            
+
         }
 
         private void ForceGraphToRedisgn()
         {
             GrouppedProperties.Clear();
             Filter filter = _resultFilters.FirstOrDefault(i => i.IsChecked);
-            if(filter == null)
+            if (filter == null)
             {
                 return;
             }
@@ -225,7 +246,7 @@ namespace MainModule.ViewModels
         private void DesignCakeGraph()
         {
 
-            ResultsPlot.Title = "Distribution of values over number of pictures";
+            ResultsPlot.Title = string.Format("Distribution of {0} values over total analyzed photos", CurrentFilterText);
             ResultsPlot.TitleFontSize = 20;
             ResultsPlot.TitleFont = "Segoe UI";
             ResultsPlot.TitleColor = OxyColor.FromRgb(ColorsHelper.RedMainGreen, ColorsHelper.GreenMainGreen, ColorsHelper.BlueMainGreen);
@@ -249,6 +270,28 @@ namespace MainModule.ViewModels
         private void InitializeCommands()
         {
             CheckedChangedCommand = new DelegateCommand<bool?>(OnCheckedChangedCommand);
+            ExportGraphCommand = new DelegateCommand(OnExportGraphCommand);
+        }
+
+        private void OnExportGraphCommand()
+        {
+            var filename = string.Format("{0}_{1}_Report_{2}_{3}_{4}_{5}.pdf", SelectedGraphType, CurrentFilterText,
+               DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Millisecond);
+            var completePath = Path.Combine(_resultSet.GetAnalyzedFolder(), filename);
+            try
+            {
+                using (var stream = File.Create(completePath))
+                {
+                    var pdfExporter = new PdfExporter { Width = 600, Height = 400 };
+                    pdfExporter.Export(_plotModel, stream);
+                }
+            }
+            catch (Exception)
+            {
+                ExportText = string.Format("{0} not exported, an error occured", completePath);
+            }
+            ExportText = string.Format("{0} Exported succesfuly", completePath);
+            System.Diagnostics.Process.Start(completePath);
         }
 
         private void OnCheckedChangedCommand(bool? isChecked)
@@ -272,6 +315,7 @@ namespace MainModule.ViewModels
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
+            ExportText = "";
         }
     }
 }
